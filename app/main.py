@@ -1,10 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+APP_VERSION = "v0.1"
 
 app = FastAPI(
     title="DevSecOps API Calculator",
-    version="v0.1"
+    version=APP_VERSION
 )
 
 
@@ -18,9 +19,8 @@ class CalculationRequest(BaseModel):
 def root():
     return {
         "name": "DevSecOps API Calculator",
-        "version": "v0.1"
+        "version": APP_VERSION
     }
-
 
 
 @app.post("/calculate")
@@ -49,3 +49,23 @@ def calculate(request: CalculationRequest):
         )
 
     return {"result": result}
+
+
+@app.get("/health")
+def health():
+    return {
+        "status": "ok",
+        "version": APP_VERSION
+    }
+
+
+@app.get("/operations")
+def operations():
+    return {
+        "operations": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide"
+        ]
+    }

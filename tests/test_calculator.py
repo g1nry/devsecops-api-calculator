@@ -86,3 +86,37 @@ def test_unknown_operation():
     )
 
     assert response.status_code == 400
+
+
+def test_add_negative_numbers():
+    response = client.post(
+        "/calculate",
+        json={"a": -10, "b": 5, "operation": "add"},
+    )
+
+    assert response.status_code == 200
+    assert response.json() == {"result": -5}
+
+
+def test_multiply_float_numbers():
+    response = client.post(
+        "/calculate",
+        json={"a": 2.5, "b": 4, "operation": "multiply"},
+    )
+
+    assert response.status_code == 200
+    assert response.json() == {"result": 10}
+
+
+def test_health():
+    response = client.get("/health")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "ok"
+
+
+def test_operations():
+    response = client.get("/operations")
+
+    assert response.status_code == 200
+    assert "add" in response.json()["operations"]

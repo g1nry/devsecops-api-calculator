@@ -77,6 +77,13 @@ jobs:
           docker build \
             -t devsecops-api-calculator:${{ github.sha }} \
             .
+      - name: Run Trivy image scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: devsecops-api-calculator:${{ github.sha }}
+          format: table
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
       - name: Run Docker container
         run: |
           docker run -d \

@@ -45,6 +45,7 @@ jobs:
         uses: semgrep/semgrep-action@v1
         with:
           config: auto
+
   docker-build:
     name: Build Docker image
     runs-on: ubuntu-latest

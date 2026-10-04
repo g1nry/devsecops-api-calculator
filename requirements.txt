@@ -2,4 +2,4 @@ fastapi
 uvicorn[standard]
 pytest
 httpx
-urllib3==1.24.1
+
